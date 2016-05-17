@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<!--活动配置-->
+	<bean>
+		<property id="100001" className="ChoujiangHandler"/><!--充值转盘 -->
+		<property id="100002" className="ChoujiangHandler"/><!--充值转盘 -->
+	</bean>
+</beans>
