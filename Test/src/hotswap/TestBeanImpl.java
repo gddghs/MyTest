@@ -10,25 +10,19 @@ public class TestBeanImpl implements TestBean{
 		return b1;
 	}
 	
-	public String getOrderName() {  
-       return TestBeanImpl2.getInstance().getName();  
-	}
-	
-	public String getStr(){
-		int i=10;
-		if(i!=10){
-			return "你是逗比_"+getOrderName();
-		}else{
-			return "你不是逗比_"+getOrderName();
-		}
-	}
 
 	@Override
 	public String getName() {
-		return "我是bean1";
+		//return "name:TestBeanImpl";
+		newFunc();
+		return "name:TestBeanImpl====new";
 	}
 	
 	public void p(){
-		System.out.println(getStr());
+		System.out.println("aaaaaaaaaa");
+	}
+	
+	public void newFunc(){
+		System.out.println("my is new function");
 	}
 }

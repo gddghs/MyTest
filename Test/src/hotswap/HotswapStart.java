@@ -9,16 +9,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-/**
-* @author tangjifu
-* @version 2015年12月2日
-*/
 public class HotswapStart {
 	private static TestBean bean = new TestBeanImpl();
 	private static ScheduledExecutorService schedule = Executors.newScheduledThreadPool(1);
 	
 	public static void main(String[] args) throws Exception {
-		schedule.scheduleAtFixedRate(new TestThead(), 2, 5, TimeUnit.SECONDS);
+		schedule.scheduleAtFixedRate(new TestThead(), 2, 10, TimeUnit.SECONDS);
         while (true) {
             BufferedReader br = null;
     		try {
@@ -26,7 +22,7 @@ public class HotswapStart {
     			br = new BufferedReader(new InputStreamReader(System.in));
     			String inputStr = br.readLine();
     			if(inputStr.equals("hotswap")){
-    				String path = "E:\\workspace\\Test\\bin\\hotswap\\TestBeanImpl.class";  
+    				String path = "E:\\test\\hotswap\\TestBeanImpl.class";  
 		            byte[] b = getBytes(path);  
 		            Class c = new DynamicClassLoader().findClass(b);
 		            bean = (TestBean)c.newInstance();
@@ -63,8 +59,7 @@ public class HotswapStart {
 	static class TestThead implements Runnable{
 		@Override
 		public void run() {
-			TestBeanImpl impl = new TestBeanImpl();
-			System.out.println(impl.getStr());
+			System.out.println(bean.getName());
 		}
 	}
 }
