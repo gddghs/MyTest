@@ -24,6 +24,10 @@ public class Paper implements Comparable<Paper>, Cloneable{
 		this.lv = lv;
 	}
 	
+	public void setId(int id){
+		this.id = id;
+	}
+	
 	protected Paper clone() throws CloneNotSupportedException {
 		return (Paper)super.clone();
 	}

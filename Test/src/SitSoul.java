@@ -7,8 +7,8 @@ public class SitSoul {
 	public int getIndex() {
 		return index;
 	}
-	public void setIndex(int index) {
-		this.index = index;
+	public void incIndex() {
+		this.index ++;
 	}
 	public long getRoleId() {
 		return roleId;
@@ -19,7 +19,8 @@ public class SitSoul {
 	public int getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
-		this.status = status;
+	public void incStatus() {
+		this.status ++;
 	}
+	
 }

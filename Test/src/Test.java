@@ -2,12 +2,16 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import classloader.te.BaseClassLoader;
 
@@ -33,16 +37,39 @@ public class Test {
 	private static ConcurrentHashMap<Integer, Integer> chmap = new ConcurrentHashMap<Integer, Integer>();
 	private static ConcurrentSkipListMap<Integer, Integer> sikpMap = new ConcurrentSkipListMap<>();
 	private static ConcurrentSkipListSet<Integer> sikpSet = new ConcurrentSkipListSet<>();
+	private static ReadWriteLock lock = new ReentrantReadWriteLock();
+	private static Queue<Integer> queue = new LinkedList<>();
 	
 	
 	public static void main(String [] args){
-		String str = "0_0_0_0__";
-		String [] arr = str.split("\\_", 6);
-		int a = Integer.parseInt(arr[0]);
-		int b = Integer.parseInt(arr[1]);
-		int c = Integer.parseInt(arr[2]);
-		int d = Integer.parseInt(arr[3]);
-		String[] s = arr[4].split(",");
+		
+//		for(int i=0;i<10;i++)
+//			queue.add(i);
+//		for(int i:queue){
+//			if(i == 3)
+//				queue.remove(i);
+//		}
+		for(int i=0;i<5;i++){
+			int s = 1<<i;
+			list.add(s);
+			System.out.println("状态："+s);
+		}
+		for(int i = 0; i<10;i++){
+			String str = "";
+			for(int s:list){
+				if( i == (i&s))
+					str += s;
+			}
+			System.out.println("类型"+i+":"+str);
+		}
+		/*ByteBuffer buff = ByteBuffer.allocate(4);
+		String str = "abcd";
+		buff.put(str.getBytes());
+		buff.flip();
+		byte [] bytearr = new byte[buff.remaining()];
+		buff.get(bytearr);
+		System.out.println(new String(bytearr));*/
+		
 	}
 	
 	public void testmaplist(){
