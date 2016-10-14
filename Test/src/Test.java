@@ -1,5 +1,6 @@
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -12,6 +13,8 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import classloader.te.BaseClassLoader;
 
@@ -42,13 +45,18 @@ public class Test {
 	
 	
 	public static void main(String [] args){
+		/*ByteBuffer buff = ByteBuffer.allocate(4);
+		String str = "abcd";
+		buff.put(str.getBytes());
+		buff.flip();
+		byte [] bytearr = new byte[buff.remaining()];
+		buff.get(bytearr);
+		System.out.println(new String(bytearr));*/
 		
-//		for(int i=0;i<10;i++)
-//			queue.add(i);
-//		for(int i:queue){
-//			if(i == 3)
-//				queue.remove(i);
-//		}
+		
+	}
+	
+	public void stateControl(){
 		for(int i=0;i<5;i++){
 			int s = 1<<i;
 			list.add(s);
@@ -62,14 +70,6 @@ public class Test {
 			}
 			System.out.println("类型"+i+":"+str);
 		}
-		/*ByteBuffer buff = ByteBuffer.allocate(4);
-		String str = "abcd";
-		buff.put(str.getBytes());
-		buff.flip();
-		byte [] bytearr = new byte[buff.remaining()];
-		buff.get(bytearr);
-		System.out.println(new String(bytearr));*/
-		
 	}
 	
 	public void testmaplist(){
