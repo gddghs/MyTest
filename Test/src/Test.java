@@ -1,4 +1,5 @@
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,8 +16,6 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import classloader.te.BaseClassLoader;
 
 
 
@@ -52,7 +51,23 @@ public class Test {
 		byte [] bytearr = new byte[buff.remaining()];
 		buff.get(bytearr);
 		System.out.println(new String(bytearr));*/
-		
+		try {
+			String s = "abc中午";
+			System.out.println("字符长度："+s.length());
+			System.out.println("默认编码格式："+s.getBytes().length);
+			byte[] bytes = s.getBytes("GBK");
+			System.out.println("GBK："+bytes.length);
+			System.out.println("ISO8859_1："+s.getBytes("ISO8859_1").length);
+			System.out.println("UTF-8："+s.getBytes("UTF-8").length);
+			System.out.println("UTF-16："+s.getBytes("UTF-16").length);
+			int l = new String(bytes, "ISO8859_1").length();
+			int l2 = new String(bytes, "UTF-8").length();
+			System.out.println(l);
+			System.out.println(l2);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -105,25 +120,6 @@ public class Test {
 		}
 		System.out.println("xxx"+list);
 	}
-	
-	public static void classLoader(){
-		String className = "classloader.te.TestClassLoader";
-		try {
-			BaseClassLoader b = (BaseClassLoader) Class.forName(className).newInstance();
-			b.start();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
 	
 	public static void testQueue(){
 		try{

@@ -4,12 +4,13 @@ import java.util.concurrent.BlockingQueue;
 
 
 /**
+ * 阻塞队列-生产者消费者
 * @author tangjifu
 * @version 2015年12月29日
 */
 public class TestBlockingQueue {
 
-	private static BlockingQueue<Thread> taskQueue = new ArrayBlockingQueue<Thread>(10);
+	private static BlockingQueue<Thread> taskQueue = new ArrayBlockingQueue<Thread>(5);
 	
 	public static void main(String [] args){
 		new Thread(new Runnable() {
@@ -17,9 +18,9 @@ public class TestBlockingQueue {
 				int i=0;
 				while(true){
 					if(i%2==0)
-						acceptTask(new Task((++i)+""));
+						acceptTask(new Task((++i)));
 					else
-						acceptTask(new Task2((++i)+"_222"));
+						acceptTask(new Task2((++i)));
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
@@ -41,7 +42,7 @@ public class TestBlockingQueue {
 	private static void execute(){
 		try {
 			Thread t = taskQueue.take();
-			System.out.println("-----获取task准备执行"+t.getName());
+			System.out.println("-----获取["+t.getName()+"]准备执行");
 			t.run();
 		} catch (InterruptedException e) {
 		}
@@ -58,9 +59,9 @@ public class TestBlockingQueue {
 			e.printStackTrace();
 		}*/
 		if(taskQueue.offer(t))
-			System.out.println("队列接收任务succ."+t.getName());
+			System.out.println("++接收["+t.getName()+"]成功.");
 		else
-			System.out.println("队列接收任务失败."+t.getName());
+			System.out.println("??接收["+t.getName()+"]失败.");
 	}
 	
 	
@@ -68,8 +69,8 @@ public class TestBlockingQueue {
 
 class Task extends Thread{
 	private static List<String> list = null;
-	public Task(String name){
-		super.setName(name);
+	public Task(int taskId){
+		super.setName("A"+taskId);
 	}
 	
 	public static void handle(){
@@ -79,33 +80,32 @@ class Task extends Thread{
 	
 	@Override
 	public void run() {
-		System.out.println("+++++开始执行task "+getName());
+		System.out.println("========开始执行["+getName()+"]");
 		try {
 			Thread.sleep(10000);
 			handle();
 		} catch (Exception e) {
-			System.out.println("exception:"+e);
+			System.out.println(getName()+"异常:"+e);
 			return;
 		}
-		System.out.println("+++++task "+getName()+"执行结束");
+		System.out.println("========完成["+getName()+"]");
 	}
 }
 
 class Task2 extends Thread{
-	private static List<String> list = null;
-	public Task2(String name){
-		super.setName(name);
+	public Task2(int taskId){
+		super.setName("B"+taskId);
 	}
 	
 	@Override
 	public void run() {
-		System.out.println("+++++开始执行task2222 "+getName());
+		System.out.println("========开始执行["+getName()+"]");
 		try {
 			Thread.sleep(5000);
 		} catch (Exception e) {
-			System.out.println("exception222:"+e);
+			System.out.println(getName()+"异常:"+e);
 			return;
 		}
-		System.out.println("+++++task2222 "+getName()+"执行结束");
+		System.out.println("========完成["+getName()+"]");
 	}
 }
