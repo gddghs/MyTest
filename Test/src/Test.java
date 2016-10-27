@@ -64,6 +64,7 @@ public class Test {
 			int l2 = new String(bytes, "UTF-8").length();
 			System.out.println(l);
 			System.out.println(l2);
+			System.out.println(System.getProperty("user.dir"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
