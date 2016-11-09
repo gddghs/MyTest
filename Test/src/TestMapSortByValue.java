@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -9,25 +7,23 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
-* @author tangjifu
-* @date 2016年11月2日 上午10:32:59
+* map对value排序
 */
-public class TestMap {
+public class TestMapSortByValue {
 
 	public static void main(String[] args) throws Exception {  
         Map<String, Integer> myMap = new LinkedHashMap(); 
         for(int i=1; i<=50; i++){
         	myMap.put(i+"", (i/10)*i-i);  
         }
-        //(myMap);  
         
-        myMap = sortMap(myMap);  
+        sortMap(myMap);  
 
         for(int i=51; i<1000; i++){
         	insert(myMap, i+"", i*2);
-
         }
         printMap(myMap); 
+        System.out.println(myMap.size()); 
     }  
 	
 	private static void insert(Map<String, Integer> map, String k, int v){
@@ -36,9 +32,11 @@ public class TestMap {
 		Set<Entry<String, Integer>> entrySet = map.entrySet();
 		Entry<String, Integer>[] array = entrySet.toArray(new Entry[entrySet.size()]);
 		Entry<String, Integer> entry = array[array.length-1];
+		//做比较
 		if(v > entry.getValue()){
 			map.remove(entry.getKey());
 			map.put(k, v);
+			sortMap(map);
 		}
 		System.out.println("time:"+(System.currentTimeMillis()-t1));
 	}
@@ -55,6 +53,7 @@ public class TestMap {
         System.out.println("===================mapEnd==================");  
     }   
   
+    //按value排序
     @SuppressWarnings("unchecked")
     public static Map<String, Integer> sortMap(Map<String, Integer> oldMap) {  
     	Set<Entry<String, Integer>> set = oldMap.entrySet();
