@@ -1,7 +1,6 @@
 package db;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,14 +24,22 @@ public class TestDbManager {
     public static final String password = "tjf";
 	
     public static void main(String [] args){
-    	manager.testBatch();
+    	DbConnectionPool.init();
+    	//manager.testBatch();
+    	manager.test();
     }
     
     private void test(){
-    	String sql = "insert into test values (?, ?);";
-    	Object[] params = new Object[]{12, "测试"};
-    	int rowCount = manager.executeCommand(sql, params, null, true);
-    	logger.info("受影响的行："+rowCount);
+    	for(int i=0; i<20; i++){
+    		try{
+    			Thread.sleep(2000);
+    		}catch(Exception e){
+    		}
+    		String sql = "insert into test values (?, ?);";
+    		Object[] params = new Object[]{i, "测试"+i};
+    		int rowCount = manager.executeCommand(sql, params, null, true);
+    		logger.info("受影响的行："+rowCount);
+    	}
     }
     
     private void testBatch(){
@@ -110,9 +117,9 @@ public class TestDbManager {
 	}
 	
 	protected Connection getConnection() {
-		//return this.dbGroup.getConnection(false);
 		try {
-			return DriverManager.getConnection(url, user, password);
+			//return DriverManager.getConnection(url, user, password);
+			return DbConnectionPool.getConnection();
 		} catch (SQLException e) {
 			logger.error("getConnection err. url="+url+", user="+user+", e=",e);
 		}
